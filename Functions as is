@@ -1,0 +1,53 @@
+
+
+
+def Parser(file):
+
+    Hash = {}
+    Hashnumber = 1
+
+
+    #loops until the parsing is done.
+    with open(file) as file:
+        for line in file:
+            #Breaks the string up by word
+            LineA = line.split()
+            #Itemizes the words in the tweets, breaking them up and giving them a counter
+            itemlist = Itemize(LineA)
+            #Loops through the tweet allowing the parsing of ngrams
+            GramParser(itemlist)
+    
+    return Hash
+
+run Parser()
+
+    
+def Itemize(LineA):
+    n=0
+    for item in LineA:
+        itemlist[n] = item
+        n++
+
+
+def GramParser(itemlist):
+    x = 0
+    while x < itemlist.length():
+        #Adds the trigrams from the tweet into the Hash
+        if x+2 <= itemlist.length():
+            gram = itemlist[x]+" "+itemlist[x+1]+" "+itemlist[x+2]
+            if gram in Hash == False:
+                Hash[gram] = Hashnumber
+                Hashnumber++
+        #Adds the bigrams from the tweet into the Hash
+        if x+1 <= itemlist.length():
+            gram = itemlist[x]+" "+itemlist[x+1]
+            if gram in Hash == False:
+                Hash[gram] = Hashnumber
+                Hashnumber++
+        gram = itemlist[x]
+        #Adds the unigrams from the tweet into the Hash
+        if gram in Hash == False:
+            Hash[gram] = Hashnumber
+            Hashnumber++
+        x++
+
