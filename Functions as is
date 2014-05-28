@@ -27,6 +27,7 @@ def Itemize(LineA):
     for item in LineA:
         itemlist[n] = item
         n++
+    return itemlist
 
 
 def GramParser(itemlist):
