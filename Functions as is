@@ -10,6 +10,8 @@ def Parser(file):
     #loops until the parsing is done.
     with open(file) as file:
         for line in file:
+            #Turns the unicode into ascii to make it easier to work with
+            line = Normalizer(line)
             #Breaks the string up by word
             LineA = line.split()
             #Itemizes the words in the tweets, breaking them up and giving them a counter
@@ -20,6 +22,10 @@ def Parser(file):
     return Hash
 
 run Parser()
+
+
+def Normalizer(line):
+    return unicodedata.normalize('NFKD', line).encode('ascii','ignore')
 
     
 def Itemize(LineA):
