@@ -1,4 +1,4 @@
-
+import unicodedata
 
 
 def Parser(file):
@@ -17,44 +17,125 @@ def Parser(file):
             #Itemizes the words in the tweets, breaking them up and giving them a counter
             itemlist = Itemize(LineA)
             #Loops through the tweet allowing the parsing of ngrams
-            GramParser(itemlist)
+            Hash = GramParser(itemlist, Hash, Hashnumber)
     
     return Hash
 
-run Parser()
+
+
 
 
 def Normalizer(line):
     return unicodedata.normalize('NFKD', line).encode('ascii','ignore')
 
+
     
 def Itemize(LineA):
-    n=0
+    itemlist = []
     for item in LineA:
-        itemlist[n] = item
-        n++
+        itemlist.append(item)
     return itemlist
 
 
-def GramParser(itemlist):
+
+
+def GramParser(itemlist, Hash, Hashnumber):
     x = 0
-    while x < itemlist.length():
+    print(itemlist)
+    while x < len(itemlist):
         #Adds the trigrams from the tweet into the Hash
-        if x+2 <= itemlist.length():
+        if x+2 < len(itemlist):
             gram = itemlist[x]+" "+itemlist[x+1]+" "+itemlist[x+2]
-            if gram in Hash == False:
+            Bool1= gram in Hash
+            if Bool1 == False:
                 Hash[gram] = Hashnumber
-                Hashnumber++
+                Hashnumber=Hashnumber+1
         #Adds the bigrams from the tweet into the Hash
-        if x+1 <= itemlist.length():
+        if x+1 < len(itemlist):
             gram = itemlist[x]+" "+itemlist[x+1]
-            if gram in Hash == False:
+            Bool2 = gram in Hash
+            if Bool2 == False:
                 Hash[gram] = Hashnumber
-                Hashnumber++
+                Hashnumber=Hashnumber+1
         gram = itemlist[x]
+        Bool3 = gram in Hash
         #Adds the unigrams from the tweet into the Hash
-        if gram in Hash == False:
+        if Bool3 == False:
             Hash[gram] = Hashnumber
-            Hashnumber++
-        x++
+            Hashnumber=Hashnumber+1
+        x=x+1
+    return Hash
+
+
+
+
+def Itemizetester():
+    string = "We are having a fine day"
+    string = string.split()
+    output = Itemize(string)
+    print(output)
+
+    string = "b'@S_Remilia UFOAAaCaEaAAuEoAaAoAoATMANCaAUA ATMAASE EuETMC'"
+    string = string.split()
+    output = Itemize(string)
+    print(output)
+
+    string = "b'Mavrix Photo Inc hiring paparazzi... - #NewYork , NY (http://t.co/6tpXjqqA) Get Photography Jobs #Photography #jobs #job #GetAllJobs'"
+    string = string.split()
+    output = Itemize(string)
+    print(output)
+
+    string = "b'.:. Porque no, primero pajareamos y despus check in! Jajajajaja! Ysk lo logramos! .:. (@ Stanford Hotel) http://t.co/V8ybprwV'"
+    string = string.split()
+    output = Itemize(string)
+    print(output)
+
+
+
+def GramParserTester():
+    stringlist = ['We', 'are', 'having', 'a', 'fine', 'day']
+    Hash = {}
+    Hashnumber = 0
+    Hash = GramParser(stringlist, Hash, Hashnumber)
+    print(Hash)
+
+    stringlist = ["b'@S_Remilia", 'UFOAAaCaEaAAuEoAaAoAoATMANCaAUA', 'ATMAASE', "EuETMC'"]
+    Hash = {}
+    Hashnumber = 0
+    Hash = GramParser(stringlist, Hash, Hashnumber)
+    print(Hash)
+
+    stringlist = ["b'Mavrix", 'Photo', 'Inc', 'hiring', 'paparazzi...', '-', '#NewYork', ',', 'NY', '(http://t.co/6tpXjqqA)', 'Get', 'Photography', 'Jobs', '#Photography', '#jobs', '#job', "#GetAllJobs'"]
+    Hash = {}
+    Hashnumber = 0
+    Hash = GramParser(stringlist, Hash, Hashnumber)
+    print(Hash)
+
+    stringlist = ["b'.:.", 'Porque', 'no,', 'primero', 'pajareamos', 'y', 'despus', 'check', 'in!', 'Jajajajaja!', 'Ysk', 'lo', 'logramos!', '.:.', '(@', 'Stanford', 'Hotel)', "http://t.co/V8ybprwV'"]
+    Hash = {}
+    Hashnumber = 0
+    Hash = GramParser(stringlist, Hash, Hashnumber)
+    print(Hash)
+
+    stringlist = ['We', 'are', 'having', 'a', 'fine', 'day']
+    Hash = {}
+    Hashnumber = 0
+    Hash = GramParser(stringlist, Hash, Hashnumber)
+    print(Hash)
+
+    stringlist = ["b'@S_Remilia", 'UFOAAaCaEaAAuEoAaAoAoATMANCaAUA', 'ATMAASE', "EuETMC'"]
+    Hash = GramParser(stringlist, Hash, Hashnumber)
+    print(Hash)
+
+    stringlist = ["b'Mavrix", 'Photo', 'Inc', 'hiring', 'paparazzi...', '-', '#NewYork', ',', 'NY', '(http://t.co/6tpXjqqA)', 'Get', 'Photography', 'Jobs', '#Photography', '#jobs', '#job', "#GetAllJobs'"]
+    Hash = GramParser(stringlist, Hash, Hashnumber)
+    print(Hash)
+
+    stringlist = ["b'.:.", 'Porque', 'no,', 'primero', 'pajareamos', 'y', 'despus', 'check', 'in!', 'Jajajajaja!', 'Ysk', 'lo', 'logramos!', '.:.', '(@', 'Stanford', 'Hotel)', "http://t.co/V8ybprwV'"]
+    Hash = GramParser(stringlist, Hash, Hashnumber)
+    print(Hash)
+
+
+
+
 
