@@ -19,7 +19,10 @@ def Parser(file):
             #Loops through the tweet allowing the parsing of ngrams
             (Hash, Hashnumber) = GramParser(itemlist, Hash, Hashnumber)
     
-    return Hash
+#    return Hash
+    writer = csv.writer(open('dict.csv', 'wb'))
+    for key, value in Hash.items():
+        writer.writerow([key, value])
 
 
 
@@ -65,6 +68,15 @@ def GramParser(itemlist, Hash, Hashnumber):
         x=x+1
     return Hash, Hashnumber
 
+
+
+
+def NormalizeThat():
+    String= "@S_Remilia UFO„Å∞„Åã„ÇäË¶ã„Å¶Â§úÊõ¥„Åã„Åó„Åó„Å™„ÅÑ„Çà„ÅÜ„Å´„Å™„ÄÅS„É¨„Éü„É™„Ç¢"
+    return unicodedata.normalize('NFKD', String).encode('ascii','ignore')
+
+def NormalizeThis(String):
+    return unicodedata.normalize('NFKD', String).encode('ascii','ignore')
 
 
 
@@ -137,6 +149,9 @@ def GramParserTester():
     stringlist = ["b'.:.", 'Porque', 'no,', 'primero', 'pajareamos', 'y', 'despus', 'check', 'in!', 'Jajajajaja!', 'Ysk', 'lo', 'logramos!', '.:.', '(@', 'Stanford', 'Hotel)', "http://t.co/V8ybprwV'"]
     Hash = GramParser(stringlist, Hash, Hashnumber)
     print(Hash)
+
+
+
 
 
 
