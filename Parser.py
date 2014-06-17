@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# see http://stackoverflow.com/questions/3170211/why-declare-unicode-by-string-in-python
+
 import unicodedata
 
 
@@ -18,7 +22,7 @@ def Parser(file):
             itemlist = Itemize(LineA)
             #Loops through the tweet allowing the parsing of ngrams
             (Hash, Hashnumber) = GramParser(itemlist, Hash, Hashnumber)
-    
+
 #    return Hash
     writer = csv.writer(open('dict.csv', 'wb'))
     for key, value in Hash.items():
@@ -32,7 +36,7 @@ def Normalizer(line):
     return unicodedata.normalize('NFKD', line).encode('ascii','ignore')
 
 
-    
+
 def Itemize(LineA):
     itemlist = []
     for item in LineA:
@@ -72,7 +76,7 @@ def GramParser(itemlist, Hash, Hashnumber):
 
 
 def NormalizeThat():
-    String= "@S_Remilia UFO„Å∞„Åã„ÇäË¶ã„Å¶Â§úÊõ¥„Åã„Åó„Åó„Å™„ÅÑ„Çà„ÅÜ„Å´„Å™„ÄÅS„É¨„Éü„É™„Ç¢"
+    String= u"@S_Remilia UFO„Å∞„Åã„ÇäË¶ã„Å¶Â§úÊõ¥„Åã„Åó„Åó„Å™„ÅÑ„Çà„ÅÜ„Å´„Å™„ÄÅS„É¨„Éü„É™„Ç¢"
     return unicodedata.normalize('NFKD', String).encode('ascii','ignore')
 
 def NormalizeThis(String):
@@ -149,10 +153,3 @@ def GramParserTester():
     stringlist = ["b'.:.", 'Porque', 'no,', 'primero', 'pajareamos', 'y', 'despus', 'check', 'in!', 'Jajajajaja!', 'Ysk', 'lo', 'logramos!', '.:.', '(@', 'Stanford', 'Hotel)', "http://t.co/V8ybprwV'"]
     Hash = GramParser(stringlist, Hash, Hashnumber)
     print(Hash)
-
-
-
-
-
-
-
